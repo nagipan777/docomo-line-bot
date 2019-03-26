@@ -17,7 +17,7 @@ LINE_HEADERS = {
     'Authorization': 'Bearer {}'.format(os.environ.get('LINE_CHANNEL_SECRET'))
 }
 DOCOMO_API_KEY = os.environ.get('DOCOMO_API_KEY')
-DOCOMO_API_DIALOGUE = 'https://api.apigw.smt.docomo.ne.jp/dialogue/v1/dialogue'
+DOCOMO_API_DIALOGUE = 'https://api.apigw.smt.docomo.ne.jp/naturalChatting/v1/dialogue'
 DOCOMO_HEADERS = {
     'Content-type': 'application/json'
 }
@@ -154,5 +154,5 @@ def hello_world():
     return sess.run(hello)
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(port=port)
+    port = int(os.getenv("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
