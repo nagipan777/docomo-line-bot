@@ -14,7 +14,7 @@ LINE_API_PROFILE = 'https://api.line.me/v2/bot/profile'
 LINE_API_REPLY ='https://api.line.me/v2/bot/message/reply'
 LINE_HEADERS = {
     'Content-type': 'application/json',
-    'Authorization': 'Bearer {}'.format(os.environ.get('LINE_CHANNEL_SECRET'))
+    'Authorization': 'Bearer {}'.format(os.environ.get('CHANNEL_ACCESS_TOKEN'))
 }
 DOCOMO_API_KEY = os.environ.get('DOCOMO_API_KEY')
 DOCOMO_API_DIALOGUE = 'https://api.apigw.smt.docomo.ne.jp/naturalChatting/v1/dialogue'
@@ -89,20 +89,20 @@ def __get_dialogue_docomo(text, lineId):
 
     return response_utt
 
-def __get_dialogue_dl(text, lineId):
-    '''内部ディープラーニングを使用してメッセージを生成する'''
-    return ''
+# def __get_dialogue_dl(text, lineId):
+#     '''内部ディープラーニングを使用してメッセージを生成する'''
+#     return ''
 
-def get_dialogue(text, lineId):
-    '''入力されたテキストに対するレスポンスを生成する'''
-    response_msg = ''
+# def get_dialogue(text, lineId):
+#     '''入力されたテキストに対するレスポンスを生成する'''
+#     response_msg = ''
 
-    if MODE == 'docomo':
-        response_msg = __get_dialogue_docomo(text, lineId)
-    else:
-        response_msg = __get_dialogue_dl(text, lineId)
+#     if MODE == 'docomo':
+#         response_msg = __get_dialogue_docomo(text, lineId)
+#     else:
+#         response_msg = __get_dialogue_dl(text, lineId)
 
-    return response_msg
+#     return response_msg
 
 
 def send_reply(body):
@@ -154,5 +154,5 @@ def hello_world():
     return sess.run(hello)
 
 if __name__ == '__main__':
-    port = int(os.getenv("PORT", 5000))
+    port = int(os.environ.get('PORT', 5000))
     app.run(host="0.0.0.0", port=port)
