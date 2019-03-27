@@ -87,23 +87,22 @@ def __get_dialogue_docomo(text, lineId):
         response_utt = body["utt"]
     else:
         print(r)
-
     return response_utt
 
-def __get_dialogue_dl(text, lineId):
-    '''内部ディープラーニングを使用してメッセージを生成する'''
-    return ''
+# def __get_dialogue_dl(text, lineId):
+#     '''内部ディープラーニングを使用してメッセージを生成する'''
+#     return ''
 
-def get_dialogue(text, lineId):
-    '''入力されたテキストに対するレスポンスを生成する'''
-    response_msg = ''
+# def get_dialogue(text, lineId):
+#     '''入力されたテキストに対するレスポンスを生成する'''
+#     response_msg = ''
 
-    if MODE == 'docomo':
-        response_msg = __get_dialogue_docomo(text, lineId)
-    else:
-        response_msg = __get_dialogue_dl(text, lineId)
+#     if MODE == 'docomo':
+#         response_msg = __get_dialogue_docomo(text, lineId)
+#     else:
+#         response_msg = __get_dialogue_dl(text, lineId)
 
-    return response_msg
+#     return response_msg
 
 
 def send_reply(body):
