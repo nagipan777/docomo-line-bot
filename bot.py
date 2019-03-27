@@ -25,7 +25,6 @@ DOCOMO_HEADERS = {
 DOCOMO_API_CHARACTER = os.environ.get('DOCOMO_API_CHARACTER', '')
 
 def get_nickname(lineId):
-    '''LINE情報を取得'''
     name = 'あなた'
 
     if lineId:
@@ -41,14 +40,12 @@ def get_nickname(lineId):
     return name
 
 def set_context(lineId, context, mode):
-    '''ユーザごとのコンテキストをredis等に保存'''
     # ラインIDをキーとしてコンテキスト、モードの保存
     r = redis.from_url(REDIS_URL)
     # expire: 180s
     r.setex(lineId, json.dumps({'context': context, 'mode': mode}), 180)
 
 def get_context(lineId):
-    '''ユーザごとのコンテキストをredis等から取得'''
     context = ''
     mode = 'dialog'
 
@@ -63,7 +60,6 @@ def get_context(lineId):
     return [context, mode]
 
 def __get_dialogue_docomo(text, lineId):
-    '''DOCOMO会話APIを使用してメッセージを生成する'''
     response_utt = ''
     context, mode = get_context(lineId)
 
@@ -90,11 +86,9 @@ def __get_dialogue_docomo(text, lineId):
     return response_utt
 
 def __get_dialogue_dl(text, lineId):
-    '''内部ディープラーニングを使用してメッセージを生成する'''
     return ''
 
 def get_dialogue(text, lineId):
-    '''入力されたテキストに対するレスポンスを生成する'''
     response_msg = ''
 
     if MODE == 'docomo':
@@ -106,11 +100,6 @@ def get_dialogue(text, lineId):
 
 
 def send_reply(body):
-    '''
-    リプライ返信を行う
-    テキストが送られたら対話テキストを
-    それ以外は顔文字を返す
-    '''
     for event in body['events']:
         responses = []
 
