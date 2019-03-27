@@ -25,7 +25,7 @@ def heroku_handler(request, context):
 
         #リクエストbody
         body = {
-            'replyToken': event['ryplyToken']
+            'replyToken': event['replyToken'],
             'messages': [
                 {
                     "type": messsage_type,
