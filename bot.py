@@ -76,7 +76,7 @@ def __get_dialogue_docomo(text, lineId):
         "t": DOCOMO_API_CHARACTER
     }
     r = requests.post(
-        "{}?APIKEY={}".format('DOCOMO_API_DIALOGUE', 'DOCOMO_API_KEY'),
+        '{}?APIKEY={}'.format(DOCOMO_API_DIALOGUE, DOCOMO_API_KEY),
         data=json.dumps(params),
         headers=DOCOMO_HEADERS
     )
