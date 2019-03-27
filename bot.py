@@ -28,10 +28,6 @@ handler = WebhookHandler(channel_secret)
 #set docomo API
 KEY = os.environ['DOCOMO_API_KEY']
 
-#request Query
-endpoint = 'https://api.apigw.smt.docomo.ne.jp/naturalChatting/v1/dialogue?APIKEY=REGISTER_KEY'
-url = endpoint.replace('REGISTER_KEY', KEY)
-
 #　user registration
 def register():
     r_endpoint = 'https://api.apigw.smt.docomo.ne.jp/naturalChatting/v1/registration?APIKEY=REGISTER_KEY'

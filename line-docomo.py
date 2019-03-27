@@ -38,7 +38,7 @@ def heroku_handler(request, context):
 
         #post 
         req = urllib.request.Request(url, data=json.dumps(body).encode('utf-8'), 
-        method='POSt', headers=headers)
+        method='POST', headers=headers)
         with urllib.request.urlopen(req) as res:
             response_body = res.read().decode("utf-8")
     return {'statuCode': 200, 'body': '{}' }
