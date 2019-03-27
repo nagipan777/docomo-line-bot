@@ -71,7 +71,7 @@ def docomo_chatting(event):
      with urllib.request.urlopen(r) as r:
          response_body_str = r.read().decode("utf-8")
          response_body = json.loads(response_body_str)
-    response = response_body['systemText'][expression]
+    response = response_body['systemText']['expression']
 
     return response
 
