@@ -108,11 +108,6 @@ def get_dialogue(text, lineId):
 
 
 def send_reply(body):
-    '''
-    リプライ返信を行う
-    テキストが送られたら対話テキストを
-    それ以外は顔文字を返す
-    '''
     for event in body['events']:
         responses = []
 
