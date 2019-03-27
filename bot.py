@@ -24,7 +24,7 @@ DOCOMO_HEADERS = {
     'Content-type': 'application/json'
 }
 # 20: 関西弁キャラ, 30: 赤ちゃんキャラ、指定なし: デフォルトキャラ
-DOCOMO_API_CHARACTER = os.environ.get('DOCOMO_API_CHARACTER', '')
+DOCOMO_API_CHARACTER = os.environ.get('DOCOMO_API_CHARACTER')
 
 def get_nickname(lineId):
     '''LINE情報を取得'''
