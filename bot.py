@@ -13,6 +13,48 @@ app = Flask(__name__)
 line_bot_api =LineBotApi(os.environ['CHANNEL_ACCESS_TOKEN'])
 handler = WebhookHandler(os.environ['LINE_CHANNEL_SECRET'])
 
+#set docomo API
+KEY = os.environ['DOCOMO_API_KEY']
+
+#request Query
+endpoint = 'https://api.apigw.smt.docomo.ne.jp/naturalChatting/v1/dialogue?APIKEY=REGISTER_KEY'
+url = endpoint.replace('REGISTER_KEY', KEY)
+
+#　user registration
+def register():
+    r_endpoint = 'https://api.apigw.smt.docomo.ne.jp/naturalChatting/v1/registration?APIKEY=REGISTER_KEY'
+    r_url = r_endpoint.replace('REGISTER_KEY', KEY)
+    r_headers = {'Content-type': 'application/json'}
+    pay = {
+        "botId": "Chatting",
+        "appKind": "Smart Phone"
+    }
+    r = requests.post(r_url, data=json.dumps(pay), headers=r_headers)
+    appId = r.json()['appId']
+    return appId
+
+def reply(appId, utt_content):
+    headers = {'Content-type': 'application/json;charset=UTF-8'}
+    payload = {
+        "language": "ja-JP",
+        "botId": "Chatting",
+        "appId": appId,
+        "voiceText": utt_content,
+        "clientData":{
+        "option":{"t":"20"} 
+        },
+        "appRecvTime": "2019-03-27 14:00:00",  
+        "appSendTime": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    }
+    # Transmission
+    r = requests.post(url, data=json.dumps(payload), headers=headers)
+    data = r.json()
+    # rec_time = data['serverSendTime']
+    response = data['systemText']['expression']
+
+    print("response: %s" % response)
+    return response
+
 #run when accessing "webhook"
 @app.route("/webhook", methods=['POST'])
 def webhook():
@@ -29,18 +71,31 @@ def webhook():
         abort(400)
     return 'OK'
 
-#run when adding values to "handler"
-@handler.add(MessageEvent, message = TextMessage)
-def handle_text_message(event):
-    #text from user
-    text = event.message.text
-    #send text (docomo api) to Line api
-    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=text))
-
-
 @app.route("/")
 def hello():
     return "Hello World!"
+
+@handler.add(MessageEvent, message=TextMessage)
+def handle_message(event):
+    
+    my_text =str(event.message.text)
+    
+    appId = register()
+    print(appId)
+    
+    utt_content = my_text
+    res = reply(appId, utt_content)
+        
+    res_text = str(res) 
+        
+    
+    print(st)
+    line_bot_api.reply_message(
+            event.reply_token,
+            #TextSendMessage(text=event.message.text)
+            TextSendMessage(text=res_text)
+    
+    )
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
