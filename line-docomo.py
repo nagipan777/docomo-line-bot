@@ -43,7 +43,7 @@ def heroku_handler(request, context):
             response_body = res.read().decode("utf-8")
     return {'statuCode': 200, 'body': '{}' }
 
- def docomo_chatting(event):
+def docomo_chatting(event):
      #docomoエンドポイント
      endpoint = 'https://api.apigw.smt.docomo.ne.jp/naturalChatting/v1/dialogue?APIKEY=REGISTER_KEY'
      url = endpoint.replace('REGISTER_KEY', os.environ['DOCOMO_API_KEY'])
