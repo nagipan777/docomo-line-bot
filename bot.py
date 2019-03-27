@@ -12,9 +12,10 @@ MODE = 'docomo'
 REDIS_URL = os.environ.get('REDIS_URL') # herokuによって登録済み
 LINE_API_PROFILE = 'https://api.line.me/v2/bot/profile'
 LINE_API_REPLY ='https://api.line.me/v2/bot/message/reply'
+channel_secret = os.getenv.get('YOUR_CHANNEL_SECRET')
 LINE_HEADERS = {
     'Content-type': 'application/json',
-    'Authorization': 'Bearer {}'.format(os.environ.get('LINE_CHANNEL_SECRET'))
+    'Authorization': 'Bearer {}'.format(os.environ.get('CHANNEL_ACCESS_TOKEN'))
 }
 DOCOMO_API_KEY = os.environ.get('DOCOMO_API_KEY')
 DOCOMO_API_DIALOGUE = 'https://api.apigw.smt.docomo.ne.jp/dialogue/v1/dialogue'
@@ -136,11 +137,17 @@ def send_reply(body):
 
 app = Flask(__name__)
 
-@app.route("/webhook", methods=['POST'])
-def webhook():
-    print(request.json)
-    send_reply(request.json)
-    return '', 200, {}
+@app.route("/callback", methods=['POST'])
+def callback():
+    signature = request.headers['X-Line-Signature']
+    body = request.get_data(as_text=True)
+    app.logger.info("Request body: " + body)
+    try:
+        handler.handle(body, signature)
+    except InvalidSignatureError:
+        abort(400)
+
+    return 'OK'
 
 @app.route('/')
 def hello_world():
