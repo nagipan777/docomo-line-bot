@@ -14,7 +14,7 @@ LINE_API_PROFILE = 'https://api.line.me/v2/bot/profile'
 LINE_API_REPLY ='https://api.line.me/v2/bot/message/reply'
 LINE_HEADERS = {
     'Content-type': 'application/json',
-    'Authorization': 'Bearer {}'.format(os.environ.get('CHANNEL_ACCESS_TOKEN'))
+    'Authorization': 'Bearer' + os.environ.get('CHANNEL_ACCESS_TOKEN'))
 }
 DOCOMO_API_KEY = os.environ.get('DOCOMO_API_KEY')
 DOCOMO_API_DIALOGUE = 'https://api.apigw.smt.docomo.ne.jp/naturalChatting/v1/dialogue'
