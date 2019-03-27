@@ -19,7 +19,7 @@ LINE_HEADERS = {
 }
 
 DOCOMO_API_KEY = os.environ.get('DOCOMO_API_KEY')
-DOCOMO_API_DIALOGUE = 'https://api.apigw.smt.docomo.ne.jp/dialogue/v1/dialogue'
+DOCOMO_API_DIALOGUE = 'https://api.apigw.smt.docomo.ne.jp/naturalChatting/v1/registration'
 DOCOMO_HEADERS = {
     'Content-type': 'application/json'
 }
