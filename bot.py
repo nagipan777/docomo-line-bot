@@ -101,7 +101,7 @@ def handle_message(event):
     res_text = str(res) 
         
     
-    print(st)
+    print(str)
     line_bot_api.reply_message(
             event.reply_token,
             #TextSendMessage(text=event.message.text)
