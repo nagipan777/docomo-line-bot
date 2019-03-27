@@ -21,7 +21,7 @@ tano = "たの"
 
 LINE_HEADERS = {
     'Content-type': 'application/json; charset=UTF-8',
-    'X-Line-ChannelID': os.environ['ChannelID'],
+    'X-Line-ChannelID': os.environ['LINE_ChannelID'],
     'X-Line-ChannelSecret': os.environ['LINE_CHANNEL_SECRET'],
     'X-Line-Trusted-User-With-ACL': os.environ['MID']
 }
