@@ -61,7 +61,7 @@ def docomo_chatting(event):
                  "mode":"dialog",
                  "place":"名古屋"
              }
-         }、
+         },
          "appRecvTime":"2019-03-27 00:00:00",
          "appSendTime":"2019-03-27 00:00:00"
      }
