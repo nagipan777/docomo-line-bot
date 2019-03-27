@@ -13,7 +13,6 @@ MODE = 'docomo'
 REDIS_URL = os.environ.get('REDIS_URL') # herokuによって登録済み
 LINE_API_PROFILE = 'https://api.line.me/v2/bot/profile'
 LINE_API_REPLY ='https://api.line.me/v2/bot/message/reply'
-channel_secret = os.getenv.get('YOUR_CHANNEL_SECRET')
 LINE_HEADERS = {
     'Content-type': 'application/json',
     'Authorization': 'Bearer {}'.format(os.environ.get('CHANNEL_ACCESS_TOKEN'))
