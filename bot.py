@@ -12,8 +12,8 @@ from _datetime import datetime
 app = Flask(__name__)   
 
 #set Line api
-line_bot_api =LineBotApi(os.environ['CHANNEL_ACCESS_TOKEN'])
-handler = WebhookHandler(os.environ['LINE_CHANNEL_SECRET'])
+line_bot_api = os.environ['CHANNEL_ACCESS_TOKEN']
+handler = os.environ['LINE_CHANNEL_SECRET']
 
 #set docomo API
 KEY = os.environ['DOCOMO_API_KEY']
