@@ -44,33 +44,32 @@ def heroku_handler(request, context):
     return {'statuCode': 200, 'body': '{}' }
 
 def docomo_chatting(event):
-     #docomoエンドポイント
-     endpoint = 'https://api.apigw.smt.docomo.ne.jp/naturalChatting/v1/dialogue?APIKEY=REGISTER_KEY'
-     url = endpoint.replace('REGISTER_KEY', os.environ['DOCOMO_API_KEY'])
+    endpoint = 'https://api.apigw.smt.docomo.ne.jp/naturalChatting/v1/dialogue?APIKEY=REGISTER_KEY'
+    url = endpoint.replace('REGISTER_KEY', os.environ['DOCOMO_API_KEY'])
 
      # リクエストjson
-     text = event['message']['text']
-     headers = {"Content-Type":"application/json"}
-     body = {
-         "language": "ja-JP",
-         "botID": "Chatting",
-         "appId": os.environ['DOCOMO_APP_ID'],
-         "voiceText": text,
-         "clientData":{
-             "option":{
-                 "mode":"dialog",
-                 "place":"名古屋"
-             }
-         },
-         "appRecvTime":"2019-03-27 00:00:00",
-         "appSendTime":"2019-03-27 00:00:00"
-     }
+    text = event['message']['text']
+    headers = {"Content-Type":"application/json"}
+    body = {
+        "language": "ja-JP",
+        "botID": "Chatting",
+        "appId": os.environ['DOCOMO_APP_ID'],
+        "voiceText": text,
+        "clientData":{
+            "option":{
+                "mode":"dialog",
+                "place":"名古屋"
+            }
+        },
+        "appRecvTime":"2019-03-27 00:00:00",
+        "appSendTime":"2019-03-27 00:00:00"
+    }
 
      #post
-     r = urllib.request.Request(url, data=json.dumps(body).encode('utf-8'), method='POST', headers=headers)
-     with urllib.request.urlopen(r) as r:
-         response_body_str = r.read().decode("utf-8")
-         response_body = json.loads(response_body_str)
+    r = urllib.request.Request(url, data=json.dumps(body).encode('utf-8'), method='POST', headers=headers)
+    with urllib.request.urlopen(r) as r:
+        response_body_str = r.read().decode("utf-8")
+        response_body = json.loads(response_body_str)
     response = response_body['systemText']['expression']
 
     return response
