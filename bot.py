@@ -1,11 +1,13 @@
-import os
 from flask import Flask, request, abort
 # LINE api
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
 # docomo api
-import doco.client
+import requests
+import json
+import re
+from _datetime import datetime
     
 app = Flask(__name__)   
 
