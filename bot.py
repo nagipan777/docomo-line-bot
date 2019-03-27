@@ -5,6 +5,16 @@ import redis
 import tensorflow as tf
 import multiprocessing as mp
 
+from linebot import (
+    LineBotApi, WebhookHandler
+)
+from linebot.exceptions import (
+    InvalidSignatureError
+)
+from linebot.models import (
+    MessageEvent, TextMessage, TextSendMessage,
+)
+
 from flask import Flask
 from flask import request
 
@@ -17,6 +27,10 @@ LINE_HEADERS = {
     'Content-type': 'application/json',
     'Authorization': 'Bearer {}'.format(os.environ.get('CHANNEL_ACCESS_TOKEN'))
 }
+
+line_bot_api = LineBotApi(channel_access_token)
+handler = WebhookHandler(channel_secret)
+
 DOCOMO_API_KEY = os.environ.get('DOCOMO_API_KEY')
 DOCOMO_API_DIALOGUE = 'https://api.apigw.smt.docomo.ne.jp/dialogue/v1/dialogue'
 DOCOMO_HEADERS = {
@@ -148,6 +162,12 @@ def callback():
         abort(400)
 
     return 'OK'
+
+# @app.route("/webhook", methods=['POST'])
+# def webhook():
+#     print(request.json)
+#     send_reply(request.json)
+#     return '', 200, {}
 
 @app.route('/')
 def hello_world():
