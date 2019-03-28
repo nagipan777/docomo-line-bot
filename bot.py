@@ -32,7 +32,7 @@ handler = WebhookHandler(channel_secret)
 
 #　user registration
 def register():
-    r_endpoint = 'https://api.apigw.smt.docomo.ne.jp/naturalChatting/v1/dialogue?APIKEY=REGISTER_KEY'
+    r_endpoint = 'https://api.apigw.smt.docomo.ne.jp/naturalChatting/v1/registration?APIKEY=REGISTER_KEY'
     r_url = endpoint.replace('REGISTER_KEY', KEY)
     r_headers = {'Content-type': 'application/json'}
     pay = {
