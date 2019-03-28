@@ -27,8 +27,6 @@ line_bot_api = LineBotApi(channel_access_token)
 handler = WebhookHandler(channel_secret)
 #set docomo API
 KEY = os.environ['DOCOMO_API_KEY']
-
-#request Query
 endpoint = 'https://api.apigw.smt.docomo.ne.jp/naturalChatting/v1/dialogue?APIKEY=REGISTER_KEY'
 url = endpoint.replace('REGISTER_KEY', KEY)
 headers = {'Content-type': 'application/json;charset=UTF-8'}
@@ -44,7 +42,6 @@ def register():
     return appId
 
 def reply(appId, utt_content):
-   
     payload = {
         "language": "ja-JP",
         "botId": "Chatting",
