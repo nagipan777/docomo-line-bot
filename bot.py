@@ -31,22 +31,20 @@ KEY = os.environ['DOCOMO_API_KEY']
 #request Query
 endpoint = 'https://api.apigw.smt.docomo.ne.jp/naturalChatting/v1/dialogue?APIKEY=REGISTER_KEY'
 url = endpoint.replace('REGISTER_KEY', KEY)
+headers = {'Content-type': 'application/json;charset=UTF-8'}
 
 #　user registration
 def register():
-    r_endpoint = 'https://api.apigw.smt.docomo.ne.jp/naturalChatting/v1/registration?APIKEY=REGISTER_KEY'
-    r_url = r_endpoint.replace('REGISTER_KEY', KEY)
-    r_headers = {'Content-type': 'application/json'}
     pay = {
         "botId": "Chatting",
         "appKind": "Smart Phone"
     }
-    r = requests.post(r_url, data=json.dumps(pay), headers=r_headers)
+    r = requests.post(url, data=json.dumps(pay), headers=headers)
     appId = r.json()['appId']
     return appId
 
 def reply(appId, utt_content):
-    headers = {'Content-type': 'application/json;charset=UTF-8'}
+   
     payload = {
         "language": "ja-JP",
         "botId": "Chatting",
@@ -100,13 +98,11 @@ def handle_message(event):
         
     res_text = str(res) 
         
-    
     print(str)
     line_bot_api.reply_message(
             event.reply_token,
             #TextSendMessage(text=event.message.text)
             TextSendMessage(text=res_text)
-    
     )
 
 if __name__ == '__main__':
