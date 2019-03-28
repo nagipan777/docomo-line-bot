@@ -12,6 +12,8 @@ from _datetime import datetime
 app = Flask(__name__)   
 
 #set Line api
+KEY = os.environ['DOCOMO_API_KEY']endpoint = 'https://api.apigw.smt.docomo.ne.jp/naturalChatting/v1/dialogue?APIKEY=REGISTER_KEY'
+url = endpoint.replace('REGISTER_KEY', KEY)
 
 # get channel_secret and channel_access_token from your environment variable
 channel_secret = os.getenv('LINE_CHANNEL_SECRET', None)
@@ -25,10 +27,7 @@ if channel_access_token is None:
 
 line_bot_api = LineBotApi(channel_access_token)
 handler = WebhookHandler(channel_secret)
-#set docomo API
-KEY = os.environ['DOCOMO_API_KEY']
-endpoint = 'https://api.apigw.smt.docomo.ne.jp/naturalChatting/v1/dialogue?APIKEY=REGISTER_KEY'
-url = endpoint.replace('REGISTER_KEY', KEY)
+
 
 #　user registration
 def register():
