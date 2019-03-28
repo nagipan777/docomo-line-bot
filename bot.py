@@ -29,21 +29,22 @@ handler = WebhookHandler(channel_secret)
 KEY = os.environ['DOCOMO_API_KEY']
 endpoint = 'https://api.apigw.smt.docomo.ne.jp/naturalChatting/v1/dialogue?APIKEY=REGISTER_KEY'
 url = endpoint.replace('REGISTER_KEY', KEY)
-headers = {'Content-type': 'application/json;charset=UTF-8'}
 
 #　user registration
 def register():
     r_endpoint = 'https://api.apigw.smt.docomo.ne.jp/naturalChatting/v1/dialogue?APIKEY=REGISTER_KEY'
     r_url = endpoint.replace('REGISTER_KEY', KEY)
+    r_headers = {'Content-type': 'application/json'}
     pay = {
         "botId": "Chatting",
         "appKind": "Smart Phone"
     }
-    r = requests.post(r_url, data=json.dumps(pay), headers=headers)
+    r = requests.post(r_url, data=json.dumps(pay), headers=r_headers)
     appId = r.json()['appId']
     return appId
 
 def reply(appId, utt_content):
+    headers = {'Content-type': 'application/json;charset=UTF-8'}
     payload = {
         "language": "ja-JP",
         "botId": "Chatting",
