@@ -1,4 +1,4 @@
-Flask==0.12.2
+Flask~>0.12.2
 gunicorn==19.7.1
 line-bot-sdk==1.8.0
 requests==2.14.2
